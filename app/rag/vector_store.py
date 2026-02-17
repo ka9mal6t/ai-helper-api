@@ -6,8 +6,9 @@ import os
 
 class VectorStore:
     def __init__(self, path, dimension=None):
-        self.index_path = os.path.join(path, "vector_index/faiss.index")
-        self.metadata_path = os.path.join(path, "vector_index/metadata.pkl")
+        self.path = path
+        self.index_path = os.path.join(self.path, "vector_index/faiss.index")
+        self.metadata_path = os.path.join(self.path, "vector_index/metadata.pkl")
         self.texts = []
         self.metadata = []
 
@@ -38,7 +39,8 @@ class VectorStore:
         return results
 
     def save(self):
-        os.makedirs("vector_index", exist_ok=True)
+        
+        os.makedirs(os.path.join(self.path, "vector_index"), exist_ok=True)
 
         faiss.write_index(self.index, self.index_path)
 

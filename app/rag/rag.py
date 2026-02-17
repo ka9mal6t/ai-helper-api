@@ -20,7 +20,7 @@ def generate_answer(question):
     #     context = context[:3000]
 
     response = ollama.chat(
-        model="gemma3:1b",
+        model="gpt-oss:20b-cloud",
         messages=[
             {
                 "role": "system",

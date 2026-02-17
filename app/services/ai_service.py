@@ -2,7 +2,7 @@ import ollama
 
 def generate_response(messages):
     response = ollama.chat(
-        model="gemma3:1b",
+        model="gpt-oss:20b-cloud",
         messages=messages,
         options={"temperature": 0.3}
     )
@@ -16,7 +16,7 @@ def summarize_messages(messages, summary):
     )
 
     response = ollama.chat(
-        model="gemma3:1b",
+        model="gpt-oss:20b-cloud",
         messages=[
             {
                 "role": "system",

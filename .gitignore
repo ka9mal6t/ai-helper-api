@@ -188,3 +188,7 @@ logs/
 *.tiff
 *.webp
 *.svg
+
+idea.txt
+
+app/vector_index

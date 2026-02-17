@@ -11,8 +11,8 @@ def create_app():
 
     db.init_app(app)
 
-    pdf_files_path = get_static_files_paths(app, "pdf")
-    app.app_rag = RAGService(pdf_files_path)
+    pdf_files_path = get_static_files_paths(app.root_path, ".pdf", "pdf")
+    app.app_rag = RAGService(app.root_path, pdf_files_path)
 
     with app.app_context():
         db.create_all()

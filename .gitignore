@@ -10,6 +10,7 @@ __pycache__/
 # C extensions
 *.so
 
+
 # Distribution / packaging
 .Python
 build/
@@ -177,6 +178,13 @@ pyrightconfig.json
 subscriptions.db
 logs/
 
-app/static/pdf
-
-app/static/images
+*.pdf
+# All format image
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.webp
+*.svg

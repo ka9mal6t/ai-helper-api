@@ -176,3 +176,7 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/python
 subscriptions.db
 logs/
+
+app/static/pdf
+
+app/static/images

@@ -1,13 +1,14 @@
 from flask import Blueprint, request, jsonify
-from .database import db
-from .models.chat import Chat
-from .models.message import Message
-from .services.ai_service import generate_response, summarize_messages
+from ..database import db
+from ..models.chat import Chat
+from ..models.message import Message
+from ..services.ai_service import generate_response, summarize_messages
 
-main = Blueprint("main", __name__)
+ask = Blueprint("ask", __name__)
 
-@main.route("/ask", methods=["POST"])
-def ask():
+
+@ask.route("/ask", methods=["POST"])
+def ai_ask():
     data = request.json
     chat_id = data.get("chat_id")
     question = data.get("question")

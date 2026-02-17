@@ -5,9 +5,17 @@ from flask import current_app
 def generate_answer(question):
 
     rag = current_app.app_rag 
-    context_chunks = rag.retrieve(question)
-    context = "\n\n".join(context_chunks)
+    results = rag.retrieve(question)
 
+    context_chunks  = []
+    sources = set()
+
+    for item in results:
+        context_chunks.append(item["text"])
+        sources.add(item["metadata"]["source"])
+    
+    context = "\n\n".join(context_chunks)
+    
     # if len(context) > 3000:
     #     context = context[:3000]
 
@@ -32,7 +40,12 @@ def generate_answer(question):
         options={"temperature": 0.2}
     )
 
-    return response["message"]["content"]
+    answer = response["message"]["content"]
+
+    return {
+        "answer": answer,
+        "sources": list(sources)
+    }
 
 # rag = RAGService(r"./static/pdf/ICS2_mod2.1.pdf")
 

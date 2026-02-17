@@ -13,9 +13,10 @@ def ai_ask_pdf():
     if not question:
         return jsonify({"error": "Question is required"}), 400
 
-    answer = generate_answer(question)
+    result = generate_answer(question)
 
     return jsonify({
         "question": question,
-        "answer": answer
+        "answer": result["answer"],
+        "sources": result["sources"]
     })

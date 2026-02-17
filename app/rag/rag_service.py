@@ -19,13 +19,13 @@ class RAGService:
             for chunk in chunks:
                 all_chunks.append(chunk)
                 self.metadata.append({
-                    "source": filepath
+                    "source": filepath.split("\\")[-1]
                 })
 
         embeddings = embed_texts(all_chunks)
 
         self.store = VectorStore(len(embeddings[0]))
-        self.store.add(embeddings, all_chunks)
+        self.store.add(embeddings, all_chunks, self.metadata)
         
 
 

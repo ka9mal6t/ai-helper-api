@@ -17,9 +17,6 @@ def generate_answer(question):
     
     context = "\n\n".join(context_chunks)
     
-    # if len(context) > 3000:
-    #     context = context[:3000]
-
     response = ollama.chat(
         model=ai_model,
         messages=[

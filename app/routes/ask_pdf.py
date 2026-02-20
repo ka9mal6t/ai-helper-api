@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from app.services.rag import generate_answer
 from app.logs import Log
+from app.config import *
 
 
 ask_pdf = Blueprint("ask_pdf", __name__)
@@ -17,9 +18,13 @@ def ai_ask_pdf():
 
     result = generate_answer(question)
 
-    logger.info(jsonify({"question": question,
-                        "answer": result["answer"],
-                        "sources": result["sources"]}))
+    
+    if result.get("answer") == fail_pdf_search:
+        logger.info("❌ Answer didn't found | " 
+                    f"sources: {result['sources']}")
+    else:
+        logger.info("✅ Answer was founding | " 
+                    f"sources: {result['sources']}")
 
     return jsonify({
         "question": question,

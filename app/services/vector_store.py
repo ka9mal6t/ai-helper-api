@@ -2,10 +2,12 @@ import faiss
 import numpy as np
 import pickle
 import os
+from app.logs import Log
 
 
 class VectorStore:
     def __init__(self, path, dimension=None):
+        self.logger = Log.get("vector_search")
         self.path = path
         self.index_path = os.path.join(self.path, os.path.join(
             "vector_index", "faiss.index"))
@@ -27,7 +29,7 @@ class VectorStore:
         self.metadata.extend(metadata)
 
     def search(self, query_embedding):
-        k = min(50, len(self.texts)) 
+        k = min(25, len(self.texts)) 
         D, I = self.index.search(
             np.array([query_embedding]).astype("float32"), k)
 
@@ -35,6 +37,9 @@ class VectorStore:
 
         for idx in I[0]:
             if idx < len(self.texts):
+                self.logger.info(
+                                f"index: {idx} | "
+                                f"metadata: {self.metadata[idx]}")
                 results.append({
                     "text": self.texts[idx],
                     "metadata": self.metadata[idx]})

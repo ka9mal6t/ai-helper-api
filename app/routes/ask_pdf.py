@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.rag.rag import generate_answer
+from app.services.rag import generate_answer
 from app.logs import Log
 
 

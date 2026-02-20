@@ -1,5 +1,6 @@
 from app.services.document_loader import load_pdf, chunk_text
 from app.services.embedding_service import embed_texts, embed_query
+from app.services.rerank_service import rerank
 from app.services.vector_store import VectorStore
 import os
 from app.logs import Log
@@ -40,6 +41,12 @@ class RAGService:
         self.store.save()
         
 
-    def retrieve(self, question, max_chunks=8):
+    def retrieve(self, question, n=8):
         query_embedding = embed_query(question)
-        return self.store.search(query_embedding, max_chunks=max_chunks)
+        initial_results = self.store.search(query_embedding)
+
+        if not initial_results:
+            return []
+        # rerank
+        reranked = rerank(question, initial_results, top_n=n)
+        return reranked

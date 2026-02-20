@@ -1,5 +1,5 @@
 from flask import Flask
-from app.rag.rag_service import RAGService
+from app.services.rag_service import RAGService
 from app.services.static_service import get_static_files_paths
 from .database import db
 from .route import main

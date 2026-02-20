@@ -26,7 +26,7 @@ class VectorStore:
         self.texts.extend(texts)
         self.metadata.extend(metadata)
 
-    def search(self, query_embedding, max_chunks=8):
+    def search(self, query_embedding):
         k = min(50, len(self.texts)) 
         D, I = self.index.search(
             np.array([query_embedding]).astype("float32"), k)
@@ -38,9 +38,6 @@ class VectorStore:
                 results.append({
                     "text": self.texts[idx],
                     "metadata": self.metadata[idx]})
-            if len(results) >= max_chunks:
-                break
-
         return results
 
     def save(self):

@@ -1,8 +1,9 @@
 import ollama
+from app.config import *
 
 def generate_response(messages):
     response = ollama.chat(
-        model="gpt-oss:20b-cloud",
+        model=ai_model,
         messages=messages,
         options={"temperature": 0.3}
     )
@@ -16,7 +17,7 @@ def summarize_messages(messages, summary):
     )
 
     response = ollama.chat(
-        model="gpt-oss:20b-cloud",
+        model=ai_model,
         messages=[
             {
                 "role": "system",

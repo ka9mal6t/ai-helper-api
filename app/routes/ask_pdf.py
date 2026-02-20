@@ -4,11 +4,11 @@ from app.logs import Log
 
 
 ask_pdf = Blueprint("ask_pdf", __name__)
-logger = Log.get("ask_pdf")
+
 
 @ask_pdf.route("/ask_pdf", methods=["POST"])
 def ai_ask_pdf():
-
+    logger = Log.get("ask_pdf")
     data = request.json
     question = data.get("question")
 

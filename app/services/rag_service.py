@@ -19,7 +19,10 @@ class RAGService:
             self.store = VectorStore(path)
             self.keyword_search = KeywordSearch(self.store.texts, self.store.metadata)
             return
+        
+        self.rebuilding()
 
+    def rebuilding(self, path, files):
         self.logger.info("Building new FAISS index...")
 
         all_chunks = []
@@ -41,8 +44,26 @@ class RAGService:
         self.store = VectorStore(path, len(embeddings[0]))
         self.store.add(embeddings, all_chunks, metadata)
         self.store.save()
-        self.keyword_search = KeywordSearch(self.store.texts)
+        self.keyword_search = KeywordSearch(self.store.texts, metadata)
         
+    def add_document(self, path, file_path):
+        self.logger.info(f"Adding new file: {file_path}")
+
+        text = load_pdf(file_path)
+        chunks = chunk_text(text)
+
+        embeddings = embed_texts(chunks)
+
+        metadata = [
+            {"source": os.path.basename(file_path)}
+            for _ in chunks
+        ]
+
+        self.store.add(embeddings, chunks, metadata)
+        self.store.save()
+
+        # обновляем keyword search
+        self.keyword_search = KeywordSearch(self.store.texts, self.store.metadata)
 
     def retrieve(self, question, n=8):
         query_embedding = embed_query(question)
@@ -52,7 +73,6 @@ class RAGService:
         # 2️⃣ Keyword search
         keyword_results = self.keyword_search.search(question, k=20)
 
-        
         # 3️⃣ Combine indexes
         combined_indices = set()
         for item in embedding_results:

@@ -3,6 +3,7 @@ from app.routes.ask import ask
 from app.routes.ask_pdf import ask_pdf
 from app.routes.chat import chat
 from app.routes.chat_pdf import chat_pdf
+from app.routes.upload_pdf import upload_pdf
 
 
 main = Blueprint("main", __name__, url_prefix="/ai")
@@ -15,3 +16,4 @@ main.register_blueprint(ask)
 main.register_blueprint(ask_pdf)
 main.register_blueprint(chat)
 main.register_blueprint(chat_pdf)
+main.register_blueprint(upload_pdf)

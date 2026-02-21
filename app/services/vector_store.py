@@ -29,7 +29,7 @@ class VectorStore:
         self.metadata.extend(metadata)
 
     def search(self, query_embedding):
-        k = min(25, len(self.texts)) 
+        k = min(30, len(self.texts)) 
         D, I = self.index.search(
             np.array([query_embedding]).astype("float32"), k)
 

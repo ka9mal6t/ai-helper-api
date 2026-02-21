@@ -50,7 +50,7 @@ class RAGService:
         embedding_results = self.store.search(query_embedding)
 
         # 2️⃣ Keyword search
-        keyword_results = self.keyword_search.search(question, k=15)
+        keyword_results = self.keyword_search.search(question, k=20)
 
         
         # 3️⃣ Combine indexes

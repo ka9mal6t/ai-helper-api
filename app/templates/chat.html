@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/markdown.css') }}">
+
+<!-- 1. Markdown -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<!-- 2. DOMPurify -->
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+
+<title>AI Chat</title>
+</head>
+<body>
+<script>
+    let chatId = localStorage.getItem("chat_id");
+
+    if (!chatId) {
+        chatId = Math.floor(Math.random() * 1000000000);
+        localStorage.setItem("chat_id", chatId);
+    }
+
+    console.log("Chat ID:", chatId);
+</script>
+<div id="chat"></div>
+
+<div id="input-area">
+    <input id="question" placeholder="Введите сообщение..." />
+    <button onclick="sendMessage(chatId)">Отправить</button>
+</div>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+
+
+</body>
+</html>

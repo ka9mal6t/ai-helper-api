@@ -10,6 +10,19 @@ def generate_response(messages):
     return response["message"]["content"]
 
 
+def generate_response_stream(messages):
+    stream = ollama.chat(
+        model=ai_model,
+        messages=messages,
+        options={"temperature": 0.3},
+        stream=True
+    )
+
+    for chunk in stream:
+        content = chunk["message"]["content"]
+        if content:
+            yield content
+            
 def summarize_messages(messages, summary):
         
     text_block = f"system: {summary}\n" + "\n".join(

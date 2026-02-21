@@ -1,0 +1,47 @@
+.assistant {
+    align-self: flex-start;
+    background: #1e293b;
+}
+
+.assistant h1,
+.assistant h2,
+.assistant h3 {
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+.assistant p {
+    margin: 8px 0;
+}
+
+.assistant ul,
+.assistant ol {
+    padding-left: 20px;
+    margin: 8px 0;
+}
+
+.assistant li {
+    margin-bottom: 6px;
+}
+
+.assistant code {
+    background: #0f172a;
+    padding: 3px 6px;
+    border-radius: 6px;
+    font-family: monospace;
+}
+
+.assistant pre {
+    background: #0f172a;
+    padding: 12px;
+    border-radius: 10px;
+    overflow-x: auto;
+    margin: 10px 0;
+}
+
+.assistant blockquote {
+    border-left: 3px solid #2563eb;
+    padding-left: 10px;
+    margin: 10px 0;
+    color: #94a3b8;
+}

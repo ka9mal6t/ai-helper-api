@@ -42,7 +42,6 @@ def ai_ask():
 
         summary_text = summarize_messages(old_messages, chat.summary)
 
-        chat = Chat.query.get(chat_id)
         chat.summary = summary_text
 
         for msg in old_messages:

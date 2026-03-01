@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    entrypoint: >
+      sh -c "
+        ollama serve &
+        sleep 5 &&
+        ollama pull llama3:8b &&
+        wait
+      "
+
+  ai-app:
+    build: .
+    container_name: ai-rag-app
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app/vector_index:/app/app/vector_index # vector database
+      - ./instance:/app/instance # database
+      - ./logs:/app/app/logs # logs
+      - ./app/static/pdf:/app/app/static/pdf # database
+    environment:
+      - FLASK_ENV=production
+      - OLLAMA_HOST=http://ollama:11434
+    depends_on:
+      - ollama
+    restart: unless-stopped
+
+volumes:
+  ollama_data:

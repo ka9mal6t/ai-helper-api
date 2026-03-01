@@ -1,4 +1,3 @@
-import ollama
 from flask import current_app
 from app.config import *
 
@@ -17,7 +16,7 @@ def generate_answer(question):
     
     context = "\n\n".join(context_chunks)
     
-    response = ollama.chat(
+    response = current_app.client.chat(
         model=ai_model,
         messages=[
             {
@@ -59,8 +58,8 @@ def generate_answer_stream(question):
 
     context = "\n\n".join(context_chunks)
 
-    stream = ollama.chat(
-        model="gpt-oss:20b-cloud",
+    stream = current_app.client.chat(
+        model=ai_model,
         messages=[
             {
                 "role": "system",

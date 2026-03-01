@@ -20,7 +20,7 @@ class RAGService:
             self.keyword_search = KeywordSearch(self.store.texts, self.store.metadata)
             return
         
-        self.rebuilding()
+        self.rebuilding(path, files)
 
     def rebuilding(self, path, files):
         self.logger.info("Building new FAISS index...")
@@ -71,7 +71,7 @@ class RAGService:
         embedding_results = self.store.search(query_embedding)
 
         # 2️⃣ Keyword search
-        keyword_results = self.keyword_search.search(question, k=20)
+        keyword_results = self.keyword_search.search(question, k=10)
 
         # 3️⃣ Combine indexes
         combined_indices = set()

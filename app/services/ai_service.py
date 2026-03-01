@@ -1,8 +1,8 @@
-import ollama
+from flask import current_app
 from app.config import *
 
 def generate_response(messages):
-    response = ollama.chat(
+    response = current_app.client.chat(
         model=ai_model,
         messages=messages,
         options={"temperature": 0.3}
@@ -11,7 +11,7 @@ def generate_response(messages):
 
 
 def generate_response_stream(messages):
-    stream = ollama.chat(
+    stream = current_app.client.chat(
         model=ai_model,
         messages=messages,
         options={"temperature": 0.3},
@@ -29,7 +29,7 @@ def summarize_messages(messages, summary):
         [f"{m.role}: {m.content}" for m in messages]
     )
 
-    response = ollama.chat(
+    response = current_app.client.chat(
         model=ai_model,
         messages=[
             {

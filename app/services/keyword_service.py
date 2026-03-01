@@ -9,7 +9,7 @@ class KeywordSearch:
         self.tokenized_corpus = [text.lower().split() for text in texts]
         self.bm25 = BM25Okapi(self.tokenized_corpus)
 
-    def search(self, query, k=20):
+    def search(self, query, k=10):
         tokenized_query = query.lower().split()
         scores = self.bm25.get_scores(tokenized_query)
 
